@@ -44,11 +44,15 @@ let reg = /\: (.*)/;
 
 let extraction = pos.match(reg)[1]
 
-let ec = []
+var g1 = {
+    red_count: 0,
+    green_count: 0,
+    blue_count: 0,
+};
 
-ec.push(extraction.match(/^(.*?)\;/)[1])
+var g2 = JSON.parse(JSON.stringify(group1)), g3 = JSON.parse(JSON.stringify(group1));; // make copies of g1
 
-console.log(ec[0])
+console.log(group3.red_count)
 
 /*
 
