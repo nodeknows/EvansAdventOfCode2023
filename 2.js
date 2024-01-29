@@ -50,9 +50,10 @@ var g1 = {
     blue_count: 0,
 };
 
-var g2 = JSON.parse(JSON.stringify(group1)), g3 = JSON.parse(JSON.stringify(group1));; // make copies of g1
+var g2 = JSON.parse(JSON.stringify(g1)), g3 = JSON.parse(JSON.stringify(g1));; // make copies of g1
 
-console.log(group3.red_count)
+console.log(pos.match(/\d+(\.\d+)?\s\w+/g))
+console.log(pos.match(/\d+(\.\d+)?\s\w+\;/g))
 
 /*
 
