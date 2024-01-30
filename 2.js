@@ -39,21 +39,29 @@ Possible: 12 red cubes, 13 green cubes, and 14 blue cubes.
 const pos = 'Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green';
 const impos = 'Game 3: 8 green, 6 blue, 20 red; 5 blue, 4 red, 13 green; 5 green, 1 red'
 
-var g = {};
-let reg = /\: (.*)/;
+var groups = {};
 
-let extraction = pos.match(reg)[1]
+let sep = pos.match(/\d+(\.\d+)?\s\w+/g);
+let ends = pos.match(/\d+(\.\d+)?\s\w+\;/g);
 
-var g1 = {
-    red_count: 0,
-    green_count: 0,
-    blue_count: 0,
-};
+// assign properties for "end" elements present in Array: "sep";
+for (let i = 0; i != ends.length; i++) {
+    for (let ii = 0; ii != sep.length; ii++) {
+        if (ends[i].includes(sep[ii])) {
+            seps[ii] = [seps[i], true]
+        }
+    }
+}
 
-var g2 = JSON.parse(JSON.stringify(g1)), g3 = JSON.parse(JSON.stringify(g1));; // make copies of g1
+let cGroup = 1;
+let cIndex = 0;
 
-console.log(pos.match(/\d+(\.\d+)?\s\w+/g))
-console.log(pos.match(/\d+(\.\d+)?\s\w+\;/g))
+do {
+    if (!groups[cGroup]) groups[cGroup] = {red: 0, green: 0, blue: 0};
+    for (let i = 0; i != sep.length; i++) {
+        if (sep[i][1]) cGroup++;
+    }
+} while (cIndex != sep.length-1);
 
 /*
 
