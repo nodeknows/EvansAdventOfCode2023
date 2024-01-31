@@ -39,7 +39,7 @@ Possible: 12 red cubes, 13 green cubes, and 14 blue cubes.
 const pos = 'Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green';
 const impos = 'Game 3: 8 green, 6 blue, 20 red; 5 blue, 4 red, 13 green; 5 green, 1 red'
 
-var groups = {};
+var games = {};
 
 let sep = pos.match(/\d+(\.\d+)?\s\w+/g);
 let ends = pos.match(/\d+(\.\d+)?\s\w+\;/g);
@@ -48,20 +48,33 @@ let ends = pos.match(/\d+(\.\d+)?\s\w+\;/g);
 for (let i = 0; i != ends.length; i++) {
     for (let ii = 0; ii != sep.length; ii++) {
         if (ends[i].includes(sep[ii])) {
-            seps[ii] = [seps[i], true]
+            sep[ii] = [sep[ii]]
         }
     }
 }
 
-let cGroup = 1;
-let cIndex = 0;
+let cgame = 0;
+let patt = /\d+/g;
 
-do {
-    if (!groups[cGroup]) groups[cGroup] = {red: 0, green: 0, blue: 0};
-    for (let i = 0; i != sep.length; i++) {
-        if (sep[i][1]) cGroup++;
+for (let i = 0; i < sep.length; i++) {
+    if (!games[cgame]) games[cgame] = {red: 0, green: 0, blue: 0};
+
+    let item = sep[i];
+
+    if (typeof sep[i] == 'object') item = sep[i][0];
+
+    if (item.includes('red')) {
+        games[cgame].red += Number(item.match(patt))
+    } else if (item.includes('green')) {
+        games[cgame].green += Number(item.match(patt))
+    } else if (item.includes('blue')) {
+        games[cgame].blue += Number(item.match(patt))
     }
-} while (cIndex != sep.length-1);
+
+    if (typeof sep[i] == 'object') cgame++;
+}
+
+console.log(games)
 
 /*
 
